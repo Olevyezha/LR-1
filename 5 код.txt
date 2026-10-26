@@ -1,0 +1,75 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+#include <windows.h>
+
+struct student
+{
+    char famil[20];
+    char name[20];
+    char facult[20];
+    int  Nomzach;
+};
+
+int main(void)
+{
+    setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    int i;
+    struct student stud[3] = { 0 };
+    char search_famil[20], search_name[20];
+    int found = 0;
+
+    for (i = 0; i < 3; i++)
+    {
+        printf("Введите фамилию студента: ");
+        scanf("%19s", stud[i].famil);
+
+        printf("Введите имя студента: ");
+        scanf("%19s", stud[i].name);
+
+        printf("Введите название факультета: ");
+        scanf("%19s", stud[i].facult);
+
+        printf("Введите номер зачётной книжки: ");
+        scanf("%d", &stud[i].Nomzach);
+        printf("\n");
+    }
+
+    printf("===== Список студентов =====\n");
+    for (i = 0; i < 3; i++)
+    {
+        printf("Студент %s %s, факультет %s, зачётная книжка %d\n",
+            stud[i].famil, stud[i].name, stud[i].facult, stud[i].Nomzach);
+    }
+
+    printf("\n===== Поиск студента =====\n");
+    printf("Введите фамилию для поиска: ");
+    scanf("%19s", search_famil);
+    printf("Введите имя для поиска: ");
+    scanf("%19s", search_name);
+
+    for (i = 0; i < 3; i++)
+    {
+        if (strcmp(stud[i].famil, search_famil) == 0 &&
+            strcmp(stud[i].name, search_name) == 0)
+        {
+            printf("\nНайден студент:\n");
+            printf("  Фамилия:       %s\n", stud[i].famil);
+            printf("  Имя:           %s\n", stud[i].name);
+            printf("  Факультет:     %s\n", stud[i].facult);
+            printf("  Зачётная кн.:  %d\n", stud[i].Nomzach);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+        printf("Студент не найден.\n");
+
+    return 0;
+}
